@@ -12,7 +12,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());  // Adiciona o middleware CORS
+app.use(cors({
+  origin: ['http://127.0.0.1:5500', 'http://localhost:3000']
+}));
+
 app.use(bodyParser.json());
 
 // Database connection
