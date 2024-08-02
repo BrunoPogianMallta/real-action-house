@@ -1,5 +1,5 @@
-// src/index.js
 const express = require('express');
+const cors = require('cors');  // Importa o pacote CORS
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const { Pool } = require('pg');
@@ -12,6 +12,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware
+app.use(cors());  // Adiciona o middleware CORS
 app.use(bodyParser.json());
 
 // Database connection
@@ -31,7 +32,6 @@ app.post('/register', async (req, res) => {
     );
     res.status(201).json({ message: 'User registered', user: result.rows[0] });
   } catch (error) {
-    console.error('Error during registration:', error);  // Log the detailed error
     res.status(500).json({ error: 'Database error' });
   }
 });
@@ -57,7 +57,6 @@ app.post('/login', async (req, res) => {
 
     res.status(200).json({ message: 'Login successful', token });
   } catch (error) {
-    console.error('Error during login:', error);  // Log the detailed error
     res.status(500).json({ error: 'Database error' });
   }
 });
